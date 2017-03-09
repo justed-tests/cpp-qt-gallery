@@ -1,11 +1,28 @@
-#ifndef PICTURE_H
-#define PICTURE_H
+#pragma once
 
+#include "gallery-core_global.h"
 
-class Picture
+#include <QString>
+#include <QUrl>
+
+class GALLERYCORESHARED_EXPORT Picture
 {
-public:
-    Picture();
-};
 
-#endif // PICTURE_H
+public:
+  Picture(const QString& filepath = "");
+  Picture(const QUrl& fileurl);
+
+  int id() const;
+  void setId(int id);
+
+  int albumId() const;
+  void setAlbumId(int id);
+
+  QUrl fileUrl() const;
+  void setFileUrl(const QUrl& fileUrl);
+
+private:
+  int mId;
+  int mAlbumId;
+  QUrl mFileUrl; 
+};
