@@ -14,9 +14,11 @@ DEFINES += GALLERYCORE_LIBRARY
 
 SOURCES += Album.cpp \
            Picture.cpp \
-    DatabaseManager.cpp
+    DatabaseManager.cpp \
+    AlbumDao.cpp
 
 HEADERS += Album.h\
            gallery-core_global.h \
            Picture.h \
-    DatabaseManager.h
+    DatabaseManager.h \
+    AlbumDao.h
