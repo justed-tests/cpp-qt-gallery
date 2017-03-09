@@ -7,6 +7,8 @@
 
 #include "Album.h"
 
+using namespace std;
+
 AlbumDao::AlbumDao(QSqlDatabase& database)
   : mDatabase(database)
 {
@@ -29,27 +31,30 @@ void AlbumDao::addAblum(Album& album) const
   album.setId(query.lastInsertId().toInt());
 }
 
-void AlbumDao::updateAlbum(const Album& album) const
+void AlbumDao::updateAlbum(const Album&) const
 {
   // someday
 }
 
-void AlbumDao::removeAlbum(int id) const
+void AlbumDao::removeAlbum(int) const
 {
   // it will be implemented
 }
 
-QVector<Album*> AlbumDao::albums() const
+unique_ptr<vector<unique_ptr<Album>>> AlbumDao::albums() const
 {
   QSqlQuery query("SELECT * FROM albums", mDatabase);
   query.exec();
-  QVector<Album*> list;
+
+  unique_ptr<vector<unique_ptr<Album>>> list (new vector<unique_ptr<Album>>());
 
   while(query.next()) {
-    Album* album = new Album();
+    unique_ptr<Album> album(new Album());
+
     album->setId(query.value("id").toInt());
     album->setName(query.value("name").toString());
-    list.append(album);
+
+    list->push_back(move(album));
   }
 
   return list;

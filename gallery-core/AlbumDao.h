@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include <QVector>
 
 class QSqlDatabase;
@@ -15,7 +17,8 @@ public:
   void addAblum(Album& album) const;
   void updateAlbum(const Album& album) const;
   void removeAlbum(int id) const;
-  QVector<Album*> albums() const;
+  //QVector<Album*> albums() const;
+  std::unique_ptr<std::vector<std::unique_ptr<Album>>> albums() const;
 private:
   QSqlDatabase& mDatabase;
 };
