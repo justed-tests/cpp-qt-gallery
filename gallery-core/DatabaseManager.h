@@ -3,6 +3,7 @@
 #include <QString>
 
 #include "AlbumDao.h"
+#include "PictureDao.h"
 
 class QSqlDatabase;
 
@@ -19,6 +20,7 @@ protected:
 
 public:
   const AlbumDao albumDao;
+  const PictureDao pictureDao;
 private:
   QSqlDatabase* mDatabase;
 };
