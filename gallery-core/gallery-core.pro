@@ -13,8 +13,8 @@ TEMPLATE = lib
 DEFINES += GALLERYCORE_LIBRARY
 
 SOURCES += Album.cpp \
-    Picture.cpp
+           Picture.cpp \
 
 HEADERS += Album.h\
-        gallery-core_global.h \
-    Picture.h
+           gallery-core_global.h \
+           Picture.h \
