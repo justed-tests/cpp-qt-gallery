@@ -2,6 +2,8 @@
 
 #include <QString>
 
+#include "AlbumDao.h"
+
 class QSqlDatabase;
 
 const QString DATABASE_FILENAME = "gallery.db";
@@ -14,6 +16,9 @@ public:
 protected:
   DatabaseManager(const QString& path = DATABASE_FILENAME);
   DatabaseManager& operator=(const DatabaseManager& rhs);
+
+public:
+  const AlbumDao albumDao;
 private:
   QSqlDatabase* mDatabase;
 };
