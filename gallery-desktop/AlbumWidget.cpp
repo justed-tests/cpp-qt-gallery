@@ -6,6 +6,7 @@
 
 #include "AlbumModel.h"
 #include "PictureModel.h"
+#include "ThumbnailProxyModel.h"
 
 AlbumWidget::AlbumWidget(QWidget *parent) :
   QWidget(parent),
@@ -82,8 +83,7 @@ void AlbumWidget::setAlbumSelectionModel(QItemSelectionModel* albumSelectionMode
 void AlbumWidget::setPictureModel(ThumbnailProxyModel* pictureModel)
 {
   mPictureModel = pictureModel;
-  //FIXME: doesnt work
-  //ui->thumbnailListView->setModel(mPictureModel);
+  ui->thumbnailListView->setModel(mPictureModel);
 }
 
 void AlbumWidget::setPictureSelectionModel(QItemSelectionModel* selectionModel)
@@ -119,16 +119,63 @@ void AlbumWidget::deleteAlbum()
 
 void AlbumWidget::editAlbum()
 {
+  if (mAlbumSelectionModel->selectedIndexes().isEmpty()) {
+    return;
+  }
+
+  QModelIndex currentIndex = mAlbumSelectionModel->selectedIndexes().first();
+
+  QString oldAlbumName = mAlbumModel->data(currentIndex,
+      AlbumModel::Roles::NameRole).toString();
+
+  bool ok;
+
+  QString newName = QInputDialog::getText(this,
+      "Album's name",
+      "Change Album name",
+      QLineEdit::Normal,
+      oldAlbumName,
+      &ok);
+
+  if (ok && !newName.isEmpty()) {
+    mAlbumModel->setData(currentIndex, newName, AlbumModel::Roles::NameRole);
+  }
 }
 
 void AlbumWidget::addPictures()
 {
+  QStringList filenames = QFileDialog::getOpenFileNames(this,
+      "Add pictures",
+      QDir::homePath(),
+      "Picture files(*.jpg *.png)");
+
+  if (!filenames.isEmpty()) {
+    QModelIndex lastModelIndex;
+
+    for (auto filename : filenames) {
+      Picture picture(filename);
+      lastModelIndex = mPictureModel->pictureModel()->addPicture(picture);
+    }
+
+    ui->thumbnailListView->setCurrentIndex(lastModelIndex);
+  }
 }
 
 void AlbumWidget::clearUi()
 {
+  ui->albumName->setText("");
+  ui->deleteButton->setVisible(false);
+  ui->editButton->setVisible(false);
+  ui->addPicturesButton->setVisible(false);
 }
 
 void AlbumWidget::loadAlbum(const QModelIndex& albumIndex)
 {
+  mPictureModel->pictureModel()->setAlbumId(
+      mAlbumModel->data(albumIndex, AlbumModel::Roles::IdRole).toInt());
+
+  ui->albumName->setText(mAlbumModel->data(albumIndex, Qt::DisplayRole).toString());
+  ui->deleteButton->setVisible(false);
+  ui->editButton->setVisible(false);
+  ui->addPicturesButton->setVisible(false);
 }
