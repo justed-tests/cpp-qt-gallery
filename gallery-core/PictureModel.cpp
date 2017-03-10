@@ -1,7 +1,10 @@
 #include "PictureModel.h"
 
+#include <QDebug>
+
 #include "DatabaseManager.h"
 #include "AlbumModel.h"
+
 
 using namespace std;
 
@@ -36,12 +39,6 @@ void PictureModel::loadPictures(int albumId)
 
   mPictures = mDb.pictureDao.picturesForAlbum(albumId);
 }
-
-// ???
-//bool PictureModel::isIndexValid(const QModelIndex& index) const
-//{
-
-//}
 
 QModelIndex PictureModel::addPicture(const Picture& picture)
 {
@@ -101,4 +98,16 @@ bool PictureModel::removeRows(int row, int count, const QModelIndex& parent)
 
   endRemoveRows();
   return true;
+}
+
+bool PictureModel::isIndexValid(const QModelIndex& index) const
+{
+  // why not?
+  return true;
+}
+
+//void PictureModel::rowsRemoved(const QModelIndex & parent, int start, int end)
+void PictureModel::deletePicturesForAlbum()
+{
+  qWarning() << "implement me!";
 }
