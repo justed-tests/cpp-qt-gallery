@@ -51,22 +51,70 @@ AlbumWidget::~AlbumWidget()
 
 void AlbumWidget::setAlbumModel(AlbumModel* albumModel)
 {
+  mAlbumModel = albumModel;
+
+  connect(
+    mAlbumModel, &QAbstractItemModel::dataChanged,
+    [this] (const QModelIndex &topLeft) {
+      if (topLeft == mAlbumSelectionModel->currentIndex()) {
+        loadAlbum(topLeft);
+      }
+    }
+  );
 }
 
 void AlbumWidget::setAlbumSelectionModel(QItemSelectionModel* albumSelectionModel)
 {
+  mAlbumSelectionModel = albumSelectionModel;
+
+  connect(
+    mAlbumSelectionModel, &QItemSelectionModel::selectionChanged,
+    [this] (const QItemSelection &selected) {
+      if (selected.isEmpty()) {
+        clearUi();
+        return;
+      }
+      loadAlbum(selected.indexes().first());
+    }
+  );
 }
 
 void AlbumWidget::setPictureModel(ThumbnailProxyModel* pictureModel)
 {
+  mPictureModel = pictureModel;
+  //FIXME: doesnt work
+  //ui->thumbnailListView->setModel(mPictureModel);
 }
 
 void AlbumWidget::setPictureSelectionModel(QItemSelectionModel* selectionModel)
 {
+  ui->thumbnailListView->setSelectionModel(selectionModel);
 }
 
 void AlbumWidget::deleteAlbum()
 {
+  if (mAlbumSelectionModel->selectedIndexes().isEmpty()) {
+    return;
+  }
+
+  int row = mAlbumSelectionModel->currentIndex().row();
+  mAlbumModel->removeRow(row);
+
+  QModelIndex previousModelIndex = mAlbumModel->index(row - 1, 0);
+
+  if (previousModelIndex.isValid()) {
+    mAlbumSelectionModel->setCurrentIndex(previousModelIndex,
+        QItemSelectionModel::SelectCurrent);
+    return;
+  }
+
+  QModelIndex nextModelIndex = mAlbumModel->index(row, 0);
+  
+  if (nextModelIndex.isValid()) {
+    mAlbumSelectionModel->setCurrentIndex(nextModelIndex,
+        QItemSelectionModel::SelectCurrent);
+    return;
+  }
 }
 
 void AlbumWidget::editAlbum()

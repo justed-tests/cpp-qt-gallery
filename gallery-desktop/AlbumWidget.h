@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include <QModelIndex>
+#include <QItemSelectionModel>
 
 namespace Ui {
 class AlbumWidget;
@@ -9,7 +10,6 @@ class AlbumWidget;
 
 class AlbumModel;
 class PictureModel;
-class QItemSelectionModel;
 class ThumbnailProxyModel;
 
 class AlbumWidget : public QWidget
