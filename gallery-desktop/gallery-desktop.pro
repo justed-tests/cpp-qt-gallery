@@ -17,17 +17,20 @@ SOURCES += main.cpp\
     AlbumListWidget.cpp \
     ThumbnailProxyModel.cpp \
     AlbumWidget.cpp \
-    PictureDelegate.cpp
+    PictureDelegate.cpp \
+    PictureWidget.cpp
 
 HEADERS  += MainWindow.h \
     AlbumListWidget.h \
     ThumbnailProxyModel.h \
     AlbumWidget.h \
-    PictureDelegate.h
+    PictureDelegate.h \
+    PictureWidget.h
 
 FORMS    += MainWindow.ui \
     AlbumListWidget.ui \
-    AlbumWidget.ui
+    AlbumWidget.ui \
+    PictureWidget.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../gallery-core/release/ -lgallery-core 
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../gallery-core/debug/ -lgallery-core  
