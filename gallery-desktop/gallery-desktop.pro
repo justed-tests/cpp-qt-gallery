@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    AlbumListWidget.cpp
+    AlbumListWidget.cpp \
+    ThumbnailProxyModel.cpp
 
 HEADERS  += MainWindow.h \
-    AlbumListWidget.h
+    AlbumListWidget.h \
+    ThumbnailProxyModel.h
 
 FORMS    += MainWindow.ui \
     AlbumListWidget.ui
