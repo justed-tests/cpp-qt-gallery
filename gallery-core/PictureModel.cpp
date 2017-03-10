@@ -34,5 +34,5 @@ void PictureModel::loadPictures(int albumId)
     return;
   }
 
-  mPictures = mDb.pictureDao.picturesForAlbum(albumId)
+  mPictures = mDb.pictureDao.picturesForAlbum(albumId);
 }
