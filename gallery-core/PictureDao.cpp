@@ -50,7 +50,24 @@ void PictureDao::removePicturesFromAlbum(int albumId) const
   query.exec();
 }
 
-vector<Picture*> PictureDao::picturesForAlbum(int albumId) const
+unique_ptr<vector<unique_ptr<Picture>>> PictureDao::picturesForAlbum(int albumId) const
 {
+  QSqlQuery query("SELECT * FROM albums WHERE album_id=:album_id", mDatabase);
+  query.bindValue(":album_id", albumId);
+  query.exec();
+
+  unique_ptr<vector<unique_ptr<Picture>>> list (new vector<unique_ptr<Picture>>());
+
+  while(query.next()) {
+    unique_ptr<Picture> picture(new Picture());
+
+    picture->setId(query.value("id").toInt());
+    picture->setFileUrl(query.value("url").toString());
+    picture->setAlbumId(albumId);
+
+    list->push_back(move(picture));
+  }
+
+  return list;
 
 }
