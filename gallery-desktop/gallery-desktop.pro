@@ -15,14 +15,17 @@ TEMPLATE = app
 SOURCES += main.cpp\
         MainWindow.cpp \
     AlbumListWidget.cpp \
-    ThumbnailProxyModel.cpp
+    ThumbnailProxyModel.cpp \
+    AlbumWidget.cpp
 
 HEADERS  += MainWindow.h \
     AlbumListWidget.h \
-    ThumbnailProxyModel.h
+    ThumbnailProxyModel.h \
+    AlbumWidget.h
 
 FORMS    += MainWindow.ui \
-    AlbumListWidget.ui
+    AlbumListWidget.ui \
+    AlbumWidget.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../gallery-core/release/ -lgallery-core 
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../gallery-core/debug/ -lgallery-core  
