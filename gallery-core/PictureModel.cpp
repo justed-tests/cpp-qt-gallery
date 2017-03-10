@@ -46,7 +46,7 @@ QModelIndex PictureModel::addPicture(const Picture& picture)
 
   beginInsertRows(QModelIndex(), rowIndex, rowIndex);
 
-  unique_ptr<Picture> newPicture(new Picture());
+  unique_ptr<Picture> newPicture(new Picture(picture));
   mDb.pictureDao.addPictureInAlbum(mAlbumId, *newPicture);
   mPictures->push_back(move(newPicture));
 
@@ -55,7 +55,7 @@ QModelIndex PictureModel::addPicture(const Picture& picture)
   return index(rowIndex, 0);
 }
 
-int PictureModel::rowCount(const QModelIndex& parent) const
+int PictureModel::rowCount(const QModelIndex&) const
 {
   return mPictures->size();
 }
@@ -100,7 +100,7 @@ bool PictureModel::removeRows(int row, int count, const QModelIndex& parent)
   return true;
 }
 
-bool PictureModel::isIndexValid(const QModelIndex& index) const
+bool PictureModel::isIndexValid(const QModelIndex&) const
 {
   // why not?
   return true;

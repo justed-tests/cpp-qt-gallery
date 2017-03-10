@@ -3,9 +3,8 @@
 
 const unsigned int THUMBNAIL_SIZE = 350;
 
-ThumbnailProxyModel::ThumbnailProxyModel(QObject* parent)
+ThumbnailProxyModel::ThumbnailProxyModel(QObject*)
 {
-
 }
 
 void ThumbnailProxyModel::generateThumbnails(const QModelIndex& startIndex, int count)
@@ -19,7 +18,7 @@ void ThumbnailProxyModel::generateThumbnails(const QModelIndex& startIndex, int 
 
   for (int row = startIndex.row(); row < lastIndex; row++) {
     QString filepath = model->data(model->index(row, 0),
-      PictureModel::Roles::FilePathRole).toString();
+      PictureModel::PictureRole::FilePathRole).toString();
 
     QPixmap pixmap(filepath);
 
@@ -46,7 +45,8 @@ QVariant ThumbnailProxyModel::data(const QModelIndex& index, int role) const
     return QIdentityProxyModel::data(index, role);
   }
 
-  QString filepath = sourceModel()->data(index, PictureModel::Roles::FilePathRole).toString();
+  QString filepath = sourceModel()->data(index,
+    PictureModel::PictureRole::FilePathRole).toString();
 
   return *mThumbnails[filepath];
 }
@@ -66,7 +66,7 @@ void ThumbnailProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
 
   connect(
     sourceModel, &QAbstractItemModel::rowsInserted,
-    [this] (const QModelIndex& parent, int first, int last) {
+    [this] (const QModelIndex&, int first, int last) {
       generateThumbnails(index(first, 0), last - first + 1);
     }
   );

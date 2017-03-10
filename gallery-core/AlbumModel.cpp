@@ -2,14 +2,14 @@
 
 using namespace std;
 
-AlbumModel::AlbumModel(QObject* parent) :
+AlbumModel::AlbumModel(QObject*) :
   QAbstractListModel(),
   mDb(DatabaseManager::instance()),
   mAlbums(mDb.albumDao.albums())
 {
 }
 
-int AlbumModel::rowCount(const QModelIndex& parent) const
+int AlbumModel::rowCount(const QModelIndex&) const
 {
   return mAlbums->size();
 }
@@ -95,7 +95,7 @@ bool AlbumModel::removeRows(int row, int count, const QModelIndex& parent)
   return true;
 }
 
-bool AlbumModel::isIndexValid(const QModelIndex& index) const
+bool AlbumModel::isIndexValid(const QModelIndex&) const
 {
   // why not?
   return true;
