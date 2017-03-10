@@ -36,3 +36,69 @@ void PictureModel::loadPictures(int albumId)
 
   mPictures = mDb.pictureDao.picturesForAlbum(albumId);
 }
+
+// ???
+//bool PictureModel::isIndexValid(const QModelIndex& index) const
+//{
+
+//}
+
+QModelIndex PictureModel::addPicture(const Picture& picture)
+{
+  int rowIndex = rowCount();
+
+  beginInsertRows(QModelIndex(), rowIndex, rowIndex);
+
+  unique_ptr<Picture> newPicture(new Picture());
+  mDb.pictureDao.addPictureInAlbum(mAlbumId, *newPicture);
+  mPictures->push_back(move(newPicture));
+
+  endInsertRows();
+
+  return index(rowIndex, 0);
+}
+
+int PictureModel::rowCount(const QModelIndex& parent) const
+{
+  return mPictures->size();
+}
+
+QVariant PictureModel::data(const QModelIndex& index, int role) const
+{
+  if (!isIndexValid(index)) {
+    return QVariant();
+  }
+
+  const Picture& picture = *mPictures->at(index.row());
+  
+  switch (role) {
+    case PictureRole::FilePathRole:
+      return picture.fileUrl();
+    default:
+      return QVariant();
+  }
+}
+
+bool PictureModel::removeRows(int row, int count, const QModelIndex& parent)
+{
+  if (row < 0
+     || row >= rowCount()
+     || count < 0
+     || (row + count) > rowCount()) {
+    return false;
+  }
+
+  beginRemoveRows(parent, row, row + count - 1);
+  int countLeft = count;
+
+  while (countLeft--) {
+    const Picture& picture = *mPictures->at(row + countLeft);
+    mDb.pictureDao.removePicture(picture.id());
+  }
+
+  mPictures->erase(mPictures->begin() + row,
+                   mPictures->begin() + row + count);
+
+  endRemoveRows();
+  return true;
+}
