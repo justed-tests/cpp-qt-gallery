@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         MainWindow.cpp \
     AlbumListWidget.cpp \
     ThumbnailProxyModel.cpp \
-    AlbumWidget.cpp
+    AlbumWidget.cpp \
+    PictureDelegate.cpp
 
 HEADERS  += MainWindow.h \
     AlbumListWidget.h \
     ThumbnailProxyModel.h \
-    AlbumWidget.h
+    AlbumWidget.h \
+    PictureDelegate.h
 
 FORMS    += MainWindow.ui \
     AlbumListWidget.ui \
