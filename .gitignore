@@ -1,1 +1,12 @@
 *.swp
+
+gallery-desktop/desktop-gallery
+
+/Makefile
+/gallery-core/Makefile
+/gallery-desktop/Makefile
+
+gallery-core/libgallery-core.so
+gallery-core/libgallery-core.so.1
+gallery-core/libgallery-core.so.1.0
+gallery-core/libgallery-core.so.1.0.0
