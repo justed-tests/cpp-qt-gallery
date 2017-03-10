@@ -31,14 +31,21 @@ void AlbumDao::addAblum(Album& album) const
   album.setId(query.lastInsertId().toInt());
 }
 
-void AlbumDao::updateAlbum(const Album&) const
+void AlbumDao::updateAlbum(const Album& album) const
 {
-  // someday
+  QSqlQuery query(mDatabase);
+  query.prepare("UPDATE albums SET name = :name WHERE id=:id");
+  query.bindValue(":name", album.name());
+  query.bindValue(":id", album.id());
+  query.exec();
 }
 
-void AlbumDao::removeAlbum(int) const
+void AlbumDao::removeAlbum(int id) const
 {
-  // it will be implemented
+  QSqlQuery query(mDatabase);
+  query.prepare("DELETE albums WHERE id=:id");
+  query.bindValue(":id", id);
+  query.exec();
 }
 
 unique_ptr<vector<unique_ptr<Album>>> AlbumDao::albums() const
