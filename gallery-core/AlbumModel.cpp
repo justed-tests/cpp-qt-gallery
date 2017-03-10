@@ -41,7 +41,7 @@ QHash<int, QByteArray> AlbumModel::roleNames() const
   return roles;
 }
 
-QModelIndex AlbumModel::addAblum(const Album& album)
+QModelIndex AlbumModel::addAlbum(const Album& album)
 {
   int rowIndex = rowCount();
 

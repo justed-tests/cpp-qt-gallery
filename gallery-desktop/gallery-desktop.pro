@@ -13,11 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        MainWindow.cpp
+        MainWindow.cpp \
+    AlbumListWidget.cpp
 
-HEADERS  += MainWindow.h
+HEADERS  += MainWindow.h \
+    AlbumListWidget.h
 
-FORMS    += MainWindow.ui
+FORMS    += MainWindow.ui \
+    AlbumListWidget.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../gallery-core/release/ -lgallery-core 
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../gallery-core/debug/ -lgallery-core  
@@ -25,3 +28,6 @@ else:unix: LIBS += -L$$OUT_PWD/../gallery-core/ -lgallery-core
 
 INCLUDEPATH += $$PWD/../gallery-core   
 DEPENDPATH += $$PWD/../gallery-core
+
+RESOURCES += \
+    resource.qrc
