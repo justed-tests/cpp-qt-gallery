@@ -15,3 +15,5 @@ gallery-core/libgallery-core.so.1.0.0
 ui_*.h
 moc_*.cpp
 moc_*.h
+
+.ycm_extra_conf.py
