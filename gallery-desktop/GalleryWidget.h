@@ -1,5 +1,4 @@
-#ifndef GALLERYWIDGET_H
-#define GALLERYWIDGET_H
+#pragma once
 
 #include <QWidget>
 
@@ -9,14 +8,12 @@ class GalleryWidget;
 
 class GalleryWidget : public QWidget
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit GalleryWidget(QWidget *parent = 0);
-    ~GalleryWidget();
+  explicit GalleryWidget(QWidget *parent = 0);
+  ~GalleryWidget();
 
 private:
-    Ui::GalleryWidget *ui;
+  Ui::GalleryWidget *ui;
 };
-
-#endif // GALLERYWIDGET_H

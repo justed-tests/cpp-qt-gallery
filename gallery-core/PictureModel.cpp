@@ -100,10 +100,9 @@ bool PictureModel::removeRows(int row, int count, const QModelIndex& parent)
   return true;
 }
 
-bool PictureModel::isIndexValid(const QModelIndex&) const
+bool PictureModel::isIndexValid(const QModelIndex& index) const
 {
-  // why not?
-  return true;
+  return index.isValid();
 }
 
 //void PictureModel::rowsRemoved(const QModelIndex & parent, int start, int end)

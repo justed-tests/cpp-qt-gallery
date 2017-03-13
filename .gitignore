@@ -10,3 +10,8 @@ gallery-core/libgallery-core.so
 gallery-core/libgallery-core.so.1
 gallery-core/libgallery-core.so.1.0
 gallery-core/libgallery-core.so.1.0.0
+
+*.o
+ui_*.h
+moc_*.cpp
+moc_*.h

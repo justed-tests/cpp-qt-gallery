@@ -95,8 +95,7 @@ bool AlbumModel::removeRows(int row, int count, const QModelIndex& parent)
   return true;
 }
 
-bool AlbumModel::isIndexValid(const QModelIndex&) const
+bool AlbumModel::isIndexValid(const QModelIndex& index) const
 {
-  // why not?
-  return true;
+  return index.isValid();
 }
