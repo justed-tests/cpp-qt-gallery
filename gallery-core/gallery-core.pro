@@ -28,3 +28,8 @@ HEADERS += Album.h\
            PictureDao.h \
            AlbumModel.h \
            PictureModel.h
+
+;
+
+target.path = ../builds
+INSTALLS += target 

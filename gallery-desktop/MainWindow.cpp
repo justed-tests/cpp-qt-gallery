@@ -8,6 +8,7 @@
 
 #include "GalleryWidget.h"
 #include "PictureWidget.h"
+#include "ThumbnailProxyModel.h"
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -27,15 +28,41 @@ MainWindow::MainWindow(QWidget *parent) :
   ThumbnailProxyModel* thumbnailModel = new ThumbnailProxyModel(this);
   thumbnailModel->setSourceModel(pictureModel);
 
-  QItemSelectionModel* PictureSelectionModel = new QItemSelectionModel(pictureModel, this);
+  QItemSelectionModel* pictureSelectionModel = new QItemSelectionModel(pictureModel, this);
 
   mGalleryWidget->setPictureModel(thumbnailModel);
   mGalleryWidget->setPictureSelectionModel(pictureSelectionModel);
   mPictureWidget->setModel(thumbnailModel);
   mPictureWidget->setSelectionModel(pictureSelectionModel);
+
+  connect(
+    mGalleryWidget, &GalleryWidget::paintingActive,
+    this,           &MainWindow::displayPicture
+  );
+
+  connect(
+    mPictureWidget, &PictureWidget::backToGallery,
+    this,           &MainWindow::displayGallery
+  );
+
+  mStackedWidget->addWidget(mGalleryWidget);
+  mStackedWidget->addWidget(mPictureWidget);
+
+  displayGallery();
+  setCentralWidget(mStackedWidget);
 }
 
 MainWindow::~MainWindow()
 {
   delete ui;
+}
+
+void MainWindow::displayGallery()
+{
+  mStackedWidget->setCurrentWidget(mGalleryWidget);
+}
+
+void MainWindow::displayPicture(const QModelIndex& index)
+{
+  mStackedWidget->setCurrentWidget(mPictureWidget);
 }

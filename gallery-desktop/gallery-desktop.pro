@@ -44,3 +44,11 @@ DEPENDPATH += $$PWD/../gallery-core
 
 RESOURCES += \
     resource.qrc
+
+
+
+
+;
+
+target.path = ../builds
+INSTALLS += target 
