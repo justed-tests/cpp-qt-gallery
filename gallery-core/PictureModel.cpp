@@ -37,7 +37,7 @@ void PictureModel::loadPictures(int albumId)
     return;
   }
 
-  mPictures = mDb.pictureDao.picturesForAlbum(albumId);
+  mPictures = mDb.pictureDao->picturesForAlbum(albumId);
 }
 
 QModelIndex PictureModel::addPicture(const Picture& picture)
@@ -47,7 +47,7 @@ QModelIndex PictureModel::addPicture(const Picture& picture)
   beginInsertRows(QModelIndex(), rowIndex, rowIndex);
 
   unique_ptr<Picture> newPicture(new Picture(picture));
-  mDb.pictureDao.addPictureInAlbum(mAlbumId, *newPicture);
+  mDb.pictureDao->addPictureInAlbum(mAlbumId, *newPicture);
   mPictures->push_back(move(newPicture));
 
   endInsertRows();
@@ -90,7 +90,7 @@ bool PictureModel::removeRows(int row, int count, const QModelIndex& parent)
 
   while (countLeft--) {
     const Picture& picture = *mPictures->at(row + countLeft);
-    mDb.pictureDao.removePicture(picture.id());
+    mDb.pictureDao->removePicture(picture.id());
   }
 
   mPictures->erase(mPictures->begin() + row,

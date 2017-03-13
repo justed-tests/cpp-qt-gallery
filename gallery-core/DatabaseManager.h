@@ -19,8 +19,8 @@ protected:
   DatabaseManager& operator=(const DatabaseManager& rhs);
 
 public:
-  const AlbumDao albumDao;
-  const PictureDao pictureDao;
+  AlbumDao* albumDao;
+  PictureDao* pictureDao;
 private:
   QSqlDatabase* mDatabase;
 };

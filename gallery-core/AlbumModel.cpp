@@ -5,7 +5,7 @@ using namespace std;
 AlbumModel::AlbumModel(QObject*) :
   QAbstractListModel(),
   mDb(DatabaseManager::instance()),
-  mAlbums(mDb.albumDao.albums())
+  mAlbums(mDb.albumDao->albums())
 {
 }
 
@@ -48,7 +48,7 @@ QModelIndex AlbumModel::addAlbum(const Album& album)
   beginInsertRows(QModelIndex(), rowIndex, rowIndex);
 
   unique_ptr<Album> newAlbum(new Album(album));
-  mDb.albumDao.addAblum(*newAlbum);
+  mDb.albumDao->addAblum(*newAlbum);
   mAlbums->push_back(move(newAlbum));
 
   endInsertRows();
@@ -64,7 +64,7 @@ bool AlbumModel::setData(const QModelIndex& index, const QVariant& value, int ro
 
   Album& album = *mAlbums->at(index.row());
   album.setName(value.toString());
-  mDb.albumDao.updateAlbum(album);
+  mDb.albumDao->updateAlbum(album);
 
   emit dataChanged(index, index);
 
@@ -85,7 +85,7 @@ bool AlbumModel::removeRows(int row, int count, const QModelIndex& parent)
 
   while (countLeft--) {
     const Album& album = *mAlbums->at(row + countLeft);
-    mDb.albumDao.removeAlbum(album.id());
+    mDb.albumDao->removeAlbum(album.id());
   }
 
   mAlbums->erase(mAlbums->begin() + row,

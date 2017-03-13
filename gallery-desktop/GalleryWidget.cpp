@@ -2,15 +2,15 @@
 #include "ui_GalleryWidget.h"
 
 GalleryWidget::GalleryWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::GalleryWidget)
+  QWidget(parent),
+  ui(new Ui::GalleryWidget)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 }
 
 GalleryWidget::~GalleryWidget()
 {
-    delete ui;
+  delete ui;
 }
 
 void GalleryWidget::setAlbumModel(AlbumModel* albumModel)
