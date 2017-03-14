@@ -2,6 +2,8 @@
 
 #include <QPainter>
 
+#include <QDebug>
+
 const unsigned int BANNER_HEIGHT = 20;
 const unsigned int BANNER_COLOR = 0x303030;
 const unsigned int BANNER_ALPHA = 200;
@@ -19,6 +21,7 @@ void PictureDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
   painter->save();
 
   QPixmap pixmap = index.model()->data(index, Qt::DecorationRole).value<QPixmap>();
+
   painter->drawPixmap(option.rect.x(), option.rect.y(), pixmap);
 
   QRect bannerRect = QRect(option.rect.x(), option.rect.y(), pixmap.width(), BANNER_HEIGHT);
@@ -42,7 +45,6 @@ void PictureDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
 QSize PictureDelegate::sizeHint(const QStyleOptionViewItem& option,
     const QModelIndex& index) const
 {
-
   const QPixmap& pixmap = index.model()->data(index, Qt::DecorationRole).value<QPixmap>();
   return pixmap.size();
 }

@@ -1,5 +1,8 @@
 #include "ThumbnailProxyModel.h"
 #include "PictureModel.h"
+#include <QUrl>
+
+#include <QDebug>
 
 const unsigned int THUMBNAIL_SIZE = 350;
 
@@ -20,7 +23,8 @@ void ThumbnailProxyModel::generateThumbnails(const QModelIndex& startIndex, int 
     QString filepath = model->data(model->index(row, 0),
       PictureModel::PictureRole::FilePathRole).toString();
 
-    QPixmap pixmap(filepath);
+    auto url = QUrl(filepath);
+    QPixmap pixmap(url.path());
 
     auto thumbnail = new QPixmap(pixmap.scaled(THUMBNAIL_SIZE,
       THUMBNAIL_SIZE,
