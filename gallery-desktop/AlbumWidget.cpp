@@ -4,6 +4,8 @@
 #include <QInputDialog>
 #include <QFileDialog>
 
+#include <QDebug>
+
 #include "AlbumModel.h"
 #include "PictureModel.h"
 #include "ThumbnailProxyModel.h"
@@ -177,7 +179,7 @@ void AlbumWidget::loadAlbum(const QModelIndex& albumIndex)
       mAlbumModel->data(albumIndex, AlbumModel::Roles::IdRole).toInt());
 
   ui->albumName->setText(mAlbumModel->data(albumIndex, Qt::DisplayRole).toString());
-  ui->deleteButton->setVisible(false);
-  ui->editButton->setVisible(false);
-  ui->addPicturesButton->setVisible(false);
+  ui->deleteButton->setVisible(true);
+  ui->editButton->setVisible(true);
+  ui->addPicturesButton->setVisible(true);
 }
