@@ -13,8 +13,9 @@
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow),
-  mGalleryWidget(),
-  mPictureWidget()
+  mGalleryWidget( new GalleryWidget() ),
+  mPictureWidget( new PictureWidget() ),
+  mStackedWidget( new QStackedWidget() )
 {
   ui->setupUi(this);
 
