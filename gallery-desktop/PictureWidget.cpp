@@ -1,5 +1,9 @@
 #include "PictureWidget.h"
 #include "ui_PictureWidget.h"
+
+#include "ThumbnailProxyModel.h"
+#include "PictureModel.h"
+
 #include <QDebug>
 
 PictureWidget::PictureWidget(QWidget *parent) :
@@ -41,8 +45,15 @@ void PictureWidget::deletePicture()
 {
 }
 
-void PictureWidget::loadPicture(const QItemSelection& selected)
+void PictureWidget::loadPicture(const QModelIndex& index)
 {
+  auto path = mModel
+    ->pictureModel()
+    ->data(index, PictureModel::PictureRole::FilePathRole).toUrl().path();
+
+  mPixmap = QPixmap(path);
+
+  updatePicturePixmap();
 }
 
 void PictureWidget::updatePicturePixmap()

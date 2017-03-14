@@ -44,6 +44,11 @@ MainWindow::MainWindow(QWidget *parent) :
   );
 
   connect(
+    mGalleryWidget, &GalleryWidget::paintingActive,
+    mPictureWidget, &PictureWidget::loadPicture
+  );
+
+  connect(
     mPictureWidget, &PictureWidget::backToGallery,
     this,           &MainWindow::displayGallery
   );

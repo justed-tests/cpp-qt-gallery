@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QItemSelection>
 #include <QItemSelectionModel>
+#include <QModelIndex>
 
 namespace Ui {
 class PictureWidget;
@@ -28,9 +29,11 @@ signals:
 protected:
   void resizeEvent(QResizeEvent* event) override;
 
+public slots:
+  void loadPicture(const QModelIndex& index);
+
 private slots:
   void deletePicture();
-  void loadPicture(const QItemSelection& selected);
 
 private:
   void updatePicturePixmap();
