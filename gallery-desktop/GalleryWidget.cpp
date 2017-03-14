@@ -27,8 +27,10 @@ void GalleryWidget::setAlbumSelectionModel(QItemSelectionModel* albumSelectionMo
 
 void GalleryWidget::setPictureModel(ThumbnailProxyModel* pictureModel)
 {
+  ui->albumWidget->setPictureModel(pictureModel);
 }
 
 void GalleryWidget::setPictureSelectionModel(QItemSelectionModel* selectionModel)
 {
+  ui->albumWidget->setPictureSelectionModel(selectionModel);
 }
