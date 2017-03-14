@@ -1,5 +1,6 @@
 #include "PictureWidget.h"
 #include "ui_PictureWidget.h"
+#include <QDebug>
 
 PictureWidget::PictureWidget(QWidget *parent) :
   QWidget(parent),
@@ -8,6 +9,11 @@ PictureWidget::PictureWidget(QWidget *parent) :
   mSelectionModel(nullptr)
 {
   ui->setupUi(this);
+
+  connect(
+    ui->backButton, &QPushButton::clicked,
+    this,           &PictureWidget::backToGallery
+  );
 }
 
 PictureWidget::~PictureWidget()

@@ -10,6 +10,8 @@
 #include "PictureWidget.h"
 #include "ThumbnailProxyModel.h"
 
+#include <QDebug>
+
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow),
