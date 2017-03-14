@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QModelIndex>
 #include <QItemSelectionModel>
 
 namespace Ui {

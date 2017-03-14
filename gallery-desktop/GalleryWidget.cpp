@@ -1,11 +1,17 @@
 #include "GalleryWidget.h"
 #include "ui_GalleryWidget.h"
+#include "AlbumWidget.h"
 
 GalleryWidget::GalleryWidget(QWidget *parent) :
   QWidget(parent),
   ui(new Ui::GalleryWidget)
 {
   ui->setupUi(this);
+
+  connect(
+    ui->albumWidget, &AlbumWidget::pictureActivated,
+    this,                &GalleryWidget::paintingActive
+  );
 }
 
 GalleryWidget::~GalleryWidget()
