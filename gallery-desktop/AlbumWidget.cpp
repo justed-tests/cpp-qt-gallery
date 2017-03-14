@@ -175,8 +175,8 @@ void AlbumWidget::clearUi()
 
 void AlbumWidget::loadAlbum(const QModelIndex& albumIndex)
 {
-  mPictureModel->pictureModel()->setAlbumId(
-      mAlbumModel->data(albumIndex, AlbumModel::Roles::IdRole).toInt());
+  int albumId = mAlbumModel->data(albumIndex, AlbumModel::Roles::IdRole).toInt();
+  mPictureModel->pictureModel()->setAlbumId(albumId);
 
   ui->albumName->setText(mAlbumModel->data(albumIndex, Qt::DisplayRole).toString());
   ui->deleteButton->setVisible(true);

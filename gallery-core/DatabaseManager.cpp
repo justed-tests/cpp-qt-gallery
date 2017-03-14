@@ -18,6 +18,7 @@ DatabaseManager::DatabaseManager(const QString& path)
   mDatabase->open();
 
   albumDao->init();
+  pictureDao->init();
 }
 
 DatabaseManager::~DatabaseManager()

@@ -1,10 +1,9 @@
 #include "PictureModel.h"
 
-#include <QDebug>
-
 #include "DatabaseManager.h"
 #include "AlbumModel.h"
 
+#include <QDebug>
 
 using namespace std;
 
